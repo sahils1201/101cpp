@@ -1,28 +1,43 @@
 #include <iostream>
 using namespace std;
 
-//tower of HANOI function implementation
-void toh(int n, char from, char mid, char to)
+void towersofhanoi(int start, int end, char source, char aux, char destination)
 {
-    if (n == 1) {
-        cout << "Move Disk " << n << " from " << from << " to " << to << endl;
+    if(start>end)
+    {
         return;
     }
-
-    toh(n - 1, from, to, mid);
-    cout << "Move Disk " << n << " from " << from << " to " << to << endl;
-    toh(n - 1, mid, from, to);
+    towersofhanoi (start, end-1, source, destination, aux);
+    cout<<"move disk"<<end<<"from"<<source<<"to"<<destination<<endl; 
+    towersofhanoi (start, end-1, aux, source, destination);
 }
-
-//main program
 int main()
 {
+int choice;
+bool doagain=true;
+do
+{
     int n;
+    cout<<"Please enter the number of disks - ";
+    cin>>n;
+    towersofhanoi(1,n,'A','B','C');
 
-    cout << "Enter no. of disks:";
-    cin >> n;
-    //calling the TOH
-    toh(n, 'A', 'B', 'C');
+    cout <<endl<< "Check for another number of disks? "<<endl;
+        do{   
+            cout << "Press 1 for yes, 2 for No"<<endl;
+            cin >> choice;
 
-    return 0;
+            if(choice!=1 && choice!=2)
+            {
+                cout << "Please enter valid response "<<endl;
+            }
+        }while(choice!=2 && choice!=1);
+
+        if(choice==2)
+            {
+                doagain=false;
+                cout << "Thank you for using this program, have a great day!! ";
+            }
+    }while(doagain == true);
 }
+
